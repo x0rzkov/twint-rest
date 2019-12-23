@@ -17,7 +17,7 @@ dtformat = "%Y-%m-%d"
 
 #
 # Initialize Flask
-app = Flask('twint_server')
+app = Flask('twint-rest')
 
 # Development on localhost
 if config['ALLOW_CORS']:
