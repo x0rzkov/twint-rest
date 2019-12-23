@@ -5,20 +5,16 @@ import os
 import sys
 
 # Package meta-data
-NAME = 'twint'
-DESCRIPTION = 'An advanced Twitter scraping & OSINT tool.'
-URL = 'https://github.com/twintproject/twint'
-EMAIL = 'codyzacharias@pm.me'
-AUTHOR = 'Cody Zacharias'
+NAME = 'twint-rest'
+DESCRIPTION = 'Twint Rest API based on a Flask-Celery Server'
+URL = 'https://github.com/twintproject/twint-rest'
+EMAIL = 'x0rzkov@protonmail.com'
+AUTHOR = 'x0rzkov'
 REQUIRES_PYTHON = '>=3.6.0'
 VERSION = None
 
 # Packages required
-REQUIRED = [
-		'aiohttp', 'aiodns', 'beautifulsoup4', 'cchardet', 
-                'elasticsearch', 'pysocks', 'pandas', 'aiohttp_socks',
-		'schedule', 'geopy', 'fake-useragent', 'googletransx', 'aiosqlite'
-		]
+REQUIRED = ['flask', 'flask-cors', 'Celery', 'twint', 'numpy', 'aiohttp_socks']
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -43,16 +39,13 @@ setup(
 	author_email=EMAIL,
 	python_requires=REQUIRES_PYTHON,
 	url=URL,
-	packages=['twint', 'twint.storage'],
+	packages=['twint-rest'],
 	entry_points={
 		'console_scripts':[
-			'twint = twint.cli:run_as_command',
+			'twint-rest = twint_rest.cli:run_as_command',
 		],
 	},
 	install_requires=REQUIRED,
-	dependency_links=[
-		'git+https://github.com/x0rzkov/py-googletrans#egg=googletrans'
-	],
 	license='MIT',
 	classifiers=[
 		'License :: OSI Approved :: MIT License',
