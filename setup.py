@@ -6,6 +6,7 @@ import sys
 
 # Package meta-data
 NAME = 'twint-rest'
+PKG = 'twint_rest'
 DESCRIPTION = 'Twint Rest API based on a Flask-Celery Server'
 URL = 'https://github.com/twintproject/twint-rest'
 EMAIL = 'x0rzkov@protonmail.com'
@@ -24,7 +25,7 @@ with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
 # Load the package's __version__.py
 about = {}
 if not VERSION:
-	with open(os.path.join(here, NAME, '__version__.py')) as f:
+	with open(os.path.join(here, PKG, '__version__.py')) as f:
 		exec(f.read(), about)
 else:
 	about['__version__'] = VERSION
@@ -39,10 +40,10 @@ setup(
 	author_email=EMAIL,
 	python_requires=REQUIRES_PYTHON,
 	url=URL,
-	packages=['twint-rest'],
+	packages=['twint_rest'],
 	entry_points={
 		'console_scripts':[
-			'twint-rest = twint_rest.cli:run_as_command',
+			'twint-rest = twint_rest.app:run_as_command',
 		],
 	},
 	install_requires=REQUIRED,

@@ -1,6 +1,7 @@
 import os
 from celery import Celery
-from config import config
+
+from .config import config
 
 CELERY_BROKER_URL = config['CELERY_BROKER_URL']
 

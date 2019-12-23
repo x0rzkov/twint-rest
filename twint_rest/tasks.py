@@ -1,8 +1,9 @@
 import time
-from worker import celery
-from config import config
 import twint
-from arguments import TwintArguments
+
+from .worker import celery
+from .config import config
+from .arguments import TwintArguments
 
 @celery.task(name='fetch')
 def fetch(args):

@@ -3,14 +3,15 @@ from datetime import datetime, timedelta
 import time
 import copy
 import json
-# dependencies
+import sys
+import argparse
 from flask import Flask, jsonify, request
 from celery import group
-# import uuid
-# project dependencies
-from config import config
-from tasks import fetch
-from worker import celery
+import configparser
+
+from .config import config
+from .tasks import fetch
+from .worker import celery
 
 # Date format from arguments. Also required for Twint
 dtformat = "%Y-%m-%d"
@@ -99,7 +100,33 @@ def fetch_tweets():
     # }).apply_async()
     # return jsonify(group_id)
 
-if __name__ == "__main__":
+def read_config(path):
+    config = configparser.ConfigParser()
+    config.read(path)
+    config.sections()
+    return config
+
+def options():
+    """ Parse arguments
+    """
+    ap = argparse.ArgumentParser(prog="twint-rest",
+                                 usage="python3 %(prog)s [options]",
+                                 description="TWINT-REST - Restfull Flask-Celery Server.")
+    ap.add_argument("-c", "--config", help="config file.")
+    args = ap.parse_args()
+    return args
+
+def main():
     from os import environ
+    options()
+    config = read_config(args.config)
     port = int(environ.get("PORT", config['PORT']))
     app.run(host=config['HOST'], port=port, debug=config['FLASK_DEBUG'])
+
+def run_as_command():
+    version = ".".join(str(v) for v in sys.version_info[:2])
+    if float(version) < 3.6:
+        print("[-] TWINT-REST requires Python version 3.6+.")
+        sys.exit(0)
+    main()
+
